@@ -1,17 +1,12 @@
 package main
 
 import (
-	"crypto/rand"
-	"crypto/rsa"
 	"fmt"
 )
 
-func genkey() {
-	reader := rand.Reader
-	bitSize := 2048
+func genkeys() {
 
-	key, err := rsa.GenerateKey(reader, bitSize)
-	checkError(err)
+	key := genkey()
 
 	publicKey := key.PublicKey
 
@@ -51,6 +46,6 @@ func loadstore() {
 }
 
 func main() {
-	genkey()
+	genkeys()
 	loadstore()
 }
