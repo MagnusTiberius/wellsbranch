@@ -1,11 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
 	"io"
 	"log"
+	"os"
 )
 
 func main() {
@@ -40,5 +42,17 @@ func main() {
 	reply := make([]byte, 256)
 	n, err = conn.Read(reply)
 	log.Printf("client: read %q (%d bytes)", string(reply[:n]), n)
+
+	reader := bufio.NewReader(os.Stdin)
+	for {
+		message, _ := reader.ReadString('\n')
+		n, err := io.WriteString(conn, message)
+		if err != nil {
+			log.Fatalf("client: write: %s", err)
+			break
+		}
+		log.Printf("client: wrote %q (%d bytes)", message, n)
+	}
+
 	log.Print("client: exiting")
 }

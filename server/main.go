@@ -9,12 +9,6 @@ import (
 )
 
 func main() {
-	//key := api.Genkey()
-	//publicKey := key.PublicKey
-
-	//api.SaveGobKey("certs/server.key", publicKey)
-	//api.SavePublicPEMKey("certs/server.pem", publicKey)
-
 	cert, err := tls.LoadX509KeyPair("certs/server/cert.pem", "certs/server/key.pem")
 	if err != nil {
 		log.Fatalf("server: loadkeys: %s", err)
@@ -62,7 +56,7 @@ func handleClient(conn net.Conn) {
 		log.Printf("server: conn: echo %q\n", string(buf[:n]))
 		n, err = conn.Write(buf[:n])
 
-		n, err = conn.Write(buf[:n])
+		//n, err = conn.Write(buf[:n])
 		log.Printf("server: conn: wrote %d bytes", n)
 
 		if err != nil {
