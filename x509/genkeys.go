@@ -5,7 +5,6 @@
 package main
 
 import (
-	"crypto/rand"
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/asn1"
@@ -14,22 +13,6 @@ import (
 	"fmt"
 	"os"
 )
-
-func main() {
-	reader := rand.Reader
-	bitSize := 2048
-
-	key, err := rsa.GenerateKey(reader, bitSize)
-	checkError(err)
-
-	publicKey := key.PublicKey
-
-	saveGobKey("private.key", key)
-	savePEMKey("private.pem", key)
-
-	saveGobKey("public.key", publicKey)
-	savePublicPEMKey("public.pem", publicKey)
-}
 
 func saveGobKey(fileName string, key interface{}) {
 	outFile, err := os.Create(fileName)
