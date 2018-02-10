@@ -1,4 +1,4 @@
-package key
+package api
 
 import (
 	"crypto/rand"
@@ -77,7 +77,7 @@ func ParseRsaPublicKeyFromPemStr(pubPEM string) (*rsa.PublicKey, error) {
 	return nil, errors.New("Key type is not RSA")
 }
 
-func genkey() *rsa.PrivateKey {
+func Genkey() *rsa.PrivateKey {
 	reader := rand.Reader
 	bitSize := 2048
 
@@ -88,7 +88,7 @@ func genkey() *rsa.PrivateKey {
 	return key
 }
 
-func saveGobKey(fileName string, key interface{}) {
+func SaveGobKey(fileName string, key interface{}) {
 	outFile, err := os.Create(fileName)
 	checkError(err)
 	defer outFile.Close()
@@ -98,7 +98,7 @@ func saveGobKey(fileName string, key interface{}) {
 	checkError(err)
 }
 
-func savePEMKey(fileName string, key *rsa.PrivateKey) {
+func SavePEMKey(fileName string, key *rsa.PrivateKey) {
 	outFile, err := os.Create(fileName)
 	checkError(err)
 	defer outFile.Close()
@@ -112,7 +112,7 @@ func savePEMKey(fileName string, key *rsa.PrivateKey) {
 	checkError(err)
 }
 
-func savePublicPEMKey(fileName string, pubkey rsa.PublicKey) {
+func SavePublicPEMKey(fileName string, pubkey rsa.PublicKey) {
 	asn1Bytes, err := asn1.Marshal(pubkey)
 	checkError(err)
 
